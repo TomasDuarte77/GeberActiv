@@ -9,7 +9,7 @@ function Legic({ excelData, legicDB, setLegicDB }) {
     return parseInt(localStorage.getItem('legicCount')) || 0;
   });
   const [notification, setNotification] = useState({ message: '', type: '', show: false });
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function showNotification(message, type = 'success') {
     setNotification({ message, type, show: true });
@@ -27,7 +27,7 @@ function Legic({ excelData, legicDB, setLegicDB }) {
     }
 
     let legicArray = legic.split('');
-    legicArray.shift();
+    legicArray.shift(); 
     const legicCode = legicArray.join('');
     let userData = excelData[legicCode];
 
@@ -43,6 +43,7 @@ function Legic({ excelData, legicDB, setLegicDB }) {
       setInputLegic('');
       return;
     }
+
     const legicDBCopy = [...legicDB, userData];
     setLegicDB(legicDBCopy);
     localStorage.setItem('gactiveLegicReadData', JSON.stringify(legicDBCopy));
@@ -64,8 +65,12 @@ function Legic({ excelData, legicDB, setLegicDB }) {
 
     localStorage.setItem('gactiveImportedData', JSON.stringify(jsonConvert));
     setInputLegic('');
-    
-    showNotification('Legic inserido com sucesso!', 'success');
+
+ 
+    const personName = userData[1];
+
+
+    showNotification(`Legic de ${personName} inserido com sucesso!`, 'success');
   }
 
   function handleInputChange(e) {
@@ -77,7 +82,6 @@ function Legic({ excelData, legicDB, setLegicDB }) {
     }
   }
 
- 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -107,10 +111,8 @@ function Legic({ excelData, legicDB, setLegicDB }) {
         />
       </div>
 
-      {}
       <i onClick={openModal} className="fa fa-question-circle open-modal-icon" />
 
-      {}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal">
